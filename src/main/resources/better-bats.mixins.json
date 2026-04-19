@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "net.vanillaoutsider.betterbats.mixin",
+    "compatibilityLevel": "JAVA_25",
+    "mixins": [
+        "BatMixin",
+        "GameEventDispatcherMixin",
+        "MobAccessor"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

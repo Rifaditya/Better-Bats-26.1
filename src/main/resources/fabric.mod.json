@@ -1,0 +1,35 @@
+{
+    "schemaVersion": 1,
+    "id": "better-bats",
+    "version": "${version}",
+    "name": "Better Bats",
+    "description": "Chioptera enhancements. Flocking, Guano, Phototaxis.",
+    "authors": [
+        "Dasik (Rifaditya)"
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/better-bats",
+        "sources": "https://github.com/Dasik/better-bats"
+    },
+    "license": "GPL-3.0-or-later",
+    "icon": "assets/better-bats/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "net.vanillaoutsider.betterbats.BetterBatsFabric"
+        ],
+        "client": [
+            "net.vanillaoutsider.betterbats.BetterBatsFabricClient"
+        ]
+    },
+    "mixins": [
+        "better-bats.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.19.1",
+        "minecraft": ">=26.1.2",
+        "java": ">=25",
+        "fabric-api": "*",
+        "dasik-library": "*"
+    }
+}
