@@ -1,3 +1,4 @@
+// Verified against: concept_better_bats.md
 package net.vanillaoutsider.betterbats.mixin;
 
 import net.minecraft.world.entity.Mob;

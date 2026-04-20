@@ -1,3 +1,4 @@
+// Verified against: concept_better_bats.md
 package net.vanillaoutsider.betterbats.mixin;
 
 import net.minecraft.core.BlockPos;
@@ -23,6 +24,7 @@ import net.dasik.social.api.group.strategy.GroupParameters;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.vanillaoutsider.betterbats.BetterBatsFabric;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,6 +57,12 @@ public abstract class BatMixin implements GroupMember {
     public int getGroupSize() {
         return this.betterbats$flockState != null ? this.betterbats$flockState.getMemberCount() : 1;
     }
+
+    public int getMaxSpawnClusterSize() {
+        Bat self = (Bat)(Object)this;
+        return self.level().isClientSide() ? 5 : self.level().getServer().getGameRules().get(BetterBatsFabric.BAT_SWARM_SIZE);
+    }
+
 
     @Override
     public FlockType getFlockType() { return this.betterbats$flockType; }
@@ -122,7 +130,8 @@ public abstract class BatMixin implements GroupMember {
         Bat self = (Bat)(Object)this;
         if (!self.level().isClientSide() && self.isResting()) {
             this.betterbats$guanoTicks++;
-            if (this.betterbats$guanoTicks >= 12000) {
+            int threshold = self.level().getServer().getGameRules().get(BetterBatsFabric.BAT_GUANO_THRESHOLD);
+            if (this.betterbats$guanoTicks >= threshold) {
                 this.betterbats$guanoTicks = 0;
                 BlockPos pos = self.blockPosition();
                 net.minecraft.world.level.Level level = self.level();

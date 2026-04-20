@@ -1,3 +1,4 @@
+// Verified against: concept_better_bats.md
 package net.vanillaoutsider.betterbats.ai;
 
 import net.minecraft.core.BlockPos;

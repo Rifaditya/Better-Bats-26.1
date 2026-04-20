@@ -1,4 +1,11 @@
 {
   "modmenu.description.better-bats": "Overhauls bats with flocking, guano production, and ecological niche behaviors.",
-  "modmenu.name.better-bats": "Better Bats"
+  "modmenu.name.better-bats": "Better Bats",
+  "gamerule.category.better-bats.better_bats": "Better Bats",
+  "gamerule.minecraft.batSwarmSize": "Max Bat Swarm Size",
+  "gamerule.minecraft.batSwarmSize.description": "Maximum number of bats allowed in a single flock.",
+  "gamerule.minecraft.batGuanoThreshold": "Guano Production Speed",
+  "gamerule.minecraft.batGuanoThreshold.description": "Ticks required for a resting bat to produce guano (Lower is faster).",
+  "gamerule.minecraft.batPestControl": "Enable Pest Control",
+  "gamerule.minecraft.batPestControl.description": "If true, bats will hunt silverfish and endermites."
 }

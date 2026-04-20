@@ -13,8 +13,8 @@
    - **Implementation**: Strictly use `DasikLibrary` v1.6.9+ `GroupMember` and `FollowLeaderGoal`. Assign the `PulseGuard` (AtomicLong) for master pulse ticking to drastically save TPS when simulating swarm paths.
 
 3. **Guano Roosts (Ecosystem Fertility)**
-   - **Description**: Replaces magical crop pollination. Bats roosting upside down slowly accumulate and drop "Guano" on the exact block beneath them. Over time, soil beneath a roost transforms into "Enriched Farmland," passively accelerating crop ticks.
-   - **Implementation**: Track roost ticks in `NBT`. Once an accumulation threshold is reached, check `pos.below()`. If Farmland is present, swap state to Enriched Farmland (or apply a persistent tick booster). 
+   - **Description**: Replaces magical crop pollination. Bats roosting upside down slowly accumulate and drop "Guano" on the exact block beneath them. Over time, this passive guano drop accelerates crop growth by applying a bonemeal effect.
+   - **Implementation**: Track roost ticks in `NBT`. Once an accumulation threshold (defined by `batGuanoThreshold`) is reached, check `pos.below(1..20)`. If Farmland is present and a crop is above it, apply `performBonemeal`. 
 
 4. **Phototaxis & Predation (Lantern Hunting)**
    - **Description**: Similar to moths, Bats are attracted to artificial light sources. If a lantern or dynamic light is nearby, the swarm breaks normal pathing to hunt bugs around the light. Visual "crit" particles occasionally spawn to simulate eating insects.

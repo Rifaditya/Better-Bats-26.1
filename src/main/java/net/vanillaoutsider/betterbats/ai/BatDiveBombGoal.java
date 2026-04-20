@@ -1,3 +1,4 @@
+// Verified against: concept_better_bats.md
 package net.vanillaoutsider.betterbats.ai;
 
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -6,6 +7,7 @@ import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import net.vanillaoutsider.betterbats.BetterBatsFabric;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -21,6 +23,9 @@ public class BatDiveBombGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (this.bat.level().isClientSide() || !this.bat.level().getServer().getGameRules().get(BetterBatsFabric.BAT_PEST_CONTROL)) {
+            return false;
+        }
         if (this.bat.isResting() || this.bat.getRandom().nextInt(20) != 0) {
             return false;
         }
