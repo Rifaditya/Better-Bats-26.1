@@ -60,4 +60,4 @@ releases/
 # Build Logs
 build_log.txt
 build_log_utf8.txt
-*log*
+*.log

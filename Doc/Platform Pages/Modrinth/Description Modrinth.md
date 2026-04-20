@@ -36,6 +36,16 @@ Caves are quiet for a reason. Loud noises like explosions or nearby mining will 
 
 ---
 
+## ⚙️ Configuration
+
+Better Bats uses **GameRules** for real-time, server-side configuration. You can change these values in the world settings or via commands:
+
+- `batSwarmSize`: Max bats allowed in a single flock (Default: 5).
+- `batGuanoThreshold`: Ticks required to produce guano (Default: 12000). Lower is faster.
+- `batPestControl`: Toggle Silverfish and Endermite hunting (Default: true).
+
+---
+
 ## 📋 Requirements
 - **Fabric Loader**
 - **Fabric API**

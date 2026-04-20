@@ -35,7 +35,7 @@ Via DasikLibrary, allowing for server performance tuning:
 - `batPestControl` (Boolean, default `true` - Enable/Disable Silverfish hunting)
 
 ## Project Metadata
-- **Version Format**: `1.0.0+build.1`
+- **Version Format**: `1.1.0+build.1`
 - **Internal Dependency**: `"dasik-library": "*"` (Standalone)
 - **Archive Strategy**: Store old build `.jar`s in `/Archive/builds/`
 - **Hive Mind Mandate**: MUST use `GroupMember` API. AI timers must NOT be synced to NBT.
@@ -45,10 +45,10 @@ Via DasikLibrary, allowing for server performance tuning:
 - **Sounds**: Native `ENTITY_BAT_TAKEOFF` mixed with low-pitch `ENTITY_PHANTOM_FLAP` to simulate swarm scatter.
 
 ## Implementation Checklist
-- [ ] Feature 1: Surface / Cave Opening Spawning Conditions modified
-- [ ] Feature 2: Leader/Follower goal integration (DasikLibrary)
-- [ ] Feature 3: Guano Roost soil enrichment logic
-- [ ] Feature 4: Phototaxis (Lantern bug hunting & particles)
-- [ ] Feature 5: Pest Control (Silverfish Dive-Bomb)
-- [ ] Feature 6: Acoustic Panic (Vibration listener & sleep interrupt)
-- [ ] Platform Docs updated (CurseForge/Modrinth)
+- [x] Feature 1: Surface / Cave Opening Spawning Conditions modified
+- [x] Feature 2: Leader/Follower goal integration (DasikLibrary)
+- [x] Feature 3: Guano Roost soil enrichment logic
+- [x] Feature 4: Phototaxis (Lantern bug hunting & particles)
+- [x] Feature 5: Pest Control (Silverfish Dive-Bomb)
+- [x] Feature 6: Acoustic Panic (Vibration listener & sleep interrupt)
+- [x] Platform Docs updated (CurseForge/Modrinth)
