@@ -2,10 +2,16 @@
   "modmenu.description.better-bats": "Overhauls bats with flocking, guano production, and ecological niche behaviors.",
   "modmenu.name.better-bats": "Better Bats",
   "gamerule.category.better-bats.better_bats": "Better Bats",
-  "gamerule.minecraft.batSwarmSize": "Max Bat Swarm Size",
-  "gamerule.minecraft.batSwarmSize.description": "Maximum number of bats allowed in a single flock.",
-  "gamerule.minecraft.batGuanoThreshold": "Guano Production Speed",
-  "gamerule.minecraft.batGuanoThreshold.description": "Ticks required for a resting bat to produce guano (Lower is faster).",
-  "gamerule.minecraft.batPestControl": "Enable Pest Control",
-  "gamerule.minecraft.batPestControl.description": "If true, bats will hunt silverfish and endermites."
+  "gamerule.better-bats.bat_swarm_size": "Bat Swarm Size",
+  "gamerule.better-bats.bat_swarm_size.description": "Maximum number of bats allowed in a single flock.",
+  "gamerule.better-bats.bat_guano_threshold": "Guano Production Speed",
+  "gamerule.better-bats.bat_guano_threshold.description": "Ticks required for a resting bat to produce guano (Lower is faster).",
+  "gamerule.better-bats.bat_pest_control": "Enable Pest Control",
+  "gamerule.better-bats.bat_pest_control.description": "If true, bats will hunt silverfish and endermites.",
+  "gamerule.better-bats.bat_alignment": "Bat Alignment Weight",
+  "gamerule.better-bats.bat_alignment.description": "How strongly bats align their flight direction with the swarm (0-100). Default: 5",
+  "gamerule.better-bats.bat_cohesion": "Bat Cohesion Weight",
+  "gamerule.better-bats.bat_cohesion.description": "How strongly bats are pulled towards the center of the swarm (0-100). Default: 5",
+  "gamerule.better-bats.bat_separation": "Bat Separation Weight",
+  "gamerule.better-bats.bat_separation.description": "How strongly bats avoid colliding with each other (0-100). Default: 10"
 }

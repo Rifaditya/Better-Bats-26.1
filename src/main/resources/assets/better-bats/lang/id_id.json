@@ -1,0 +1,17 @@
+{
+  "modmenu.description.better-bats": "Merombak kelelawar dengan perilaku berkerumun, produksi guano, dan relung ekologis.",
+  "modmenu.name.better-bats": "Better Bats",
+  "gamerule.category.better-bats.better_bats": "Better Bats",
+  "gamerule.better-bats.bat_swarm_size": "Ukuran Kawanan Kelelawar",
+  "gamerule.better-bats.bat_swarm_size.description": "Jumlah maksimum kelelawar yang diizinkan dalam satu kawanan.",
+  "gamerule.better-bats.bat_guano_threshold": "Kecepatan Produksi Guano",
+  "gamerule.better-bats.bat_guano_threshold.description": "Detik (tick) yang dibutuhkan kelelawar yang beristirahat untuk memproduksi guano (Lebih rendah lebih cepat).",
+  "gamerule.better-bats.bat_pest_control": "Aktifkan Pembasmi Hama",
+  "gamerule.better-bats.bat_pest_control.description": "Jika benar, kelelawar akan memburu silverfish dan endermite.",
+  "gamerule.better-bats.bat_alignment": "Bobot Penyelarasan Kelelawar",
+  "gamerule.better-bats.bat_alignment.description": "Seberapa kuat kelelawar menyelaraskan arah terbangnya dengan kawanan (0-100). Default: 5",
+  "gamerule.better-bats.bat_cohesion": "Bobot Kohesi Kelelawar",
+  "gamerule.better-bats.bat_cohesion.description": "Seberapa kuat kelelawar ditarik menuju pusat kawanan (0-100). Default: 5",
+  "gamerule.better-bats.bat_separation": "Bobot Pemisahan Kelelawar",
+  "gamerule.better-bats.bat_separation.description": "Seberapa kuat kelelawar menghindari tabrakan satu sama lain (0-100). Default: 10"
+}

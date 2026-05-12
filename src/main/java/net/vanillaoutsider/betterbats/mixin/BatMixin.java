@@ -19,8 +19,6 @@ import net.minecraft.util.Mth;
 import net.dasik.social.api.group.GroupMember;
 import net.dasik.social.api.group.FlockType;
 import net.dasik.social.core.group.FlockState;
-import net.dasik.social.ai.goal.FollowLeaderGoal;
-import net.dasik.social.api.group.strategy.GroupParameters;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -60,7 +58,7 @@ public abstract class BatMixin implements GroupMember {
 
     public int getMaxSpawnClusterSize() {
         Bat self = (Bat)(Object)this;
-        return self.level().isClientSide() ? 5 : self.level().getServer().getGameRules().get(BetterBatsFabric.BAT_SWARM_SIZE);
+        return self.level().isClientSide() ? 5 : net.dasik.social.api.gamerule.DynamicGameRuleManager.getInt(self.level(), BetterBatsFabric.BAT_SWARM_SIZE);
     }
 
 
@@ -77,7 +75,7 @@ public abstract class BatMixin implements GroupMember {
     private void betterbats$onInit(EntityType<? extends Bat> type, Level level, CallbackInfo ci) {
         Bat self = (Bat)(Object)this;
         if (!level.isClientSide()) {
-            ((MobAccessor)self).getGoalSelector().addGoal(2, new FollowLeaderGoal<>(self, GroupParameters.DEFAULT_AERIAL, 16.0));
+            ((MobAccessor)self).getGoalSelector().addGoal(2, new net.vanillaoutsider.betterbats.ai.BatFollowLeaderGoal(self));
             ((MobAccessor)self).getGoalSelector().addGoal(3, new net.vanillaoutsider.betterbats.ai.BatHuntLightGoal(self));
             ((MobAccessor)self).getGoalSelector().addGoal(4, new net.vanillaoutsider.betterbats.ai.BatDiveBombGoal(self));
         }
@@ -130,7 +128,7 @@ public abstract class BatMixin implements GroupMember {
         Bat self = (Bat)(Object)this;
         if (!self.level().isClientSide() && self.isResting()) {
             this.betterbats$guanoTicks++;
-            int threshold = self.level().getServer().getGameRules().get(BetterBatsFabric.BAT_GUANO_THRESHOLD);
+            int threshold = net.dasik.social.api.gamerule.DynamicGameRuleManager.getInt(self.level(), BetterBatsFabric.BAT_GUANO_THRESHOLD);
             if (this.betterbats$guanoTicks >= threshold) {
                 this.betterbats$guanoTicks = 0;
                 BlockPos pos = self.blockPosition();
