@@ -75,9 +75,18 @@ public abstract class BatMixin implements GroupMember {
     private void betterbats$onInit(EntityType<? extends Bat> type, Level level, CallbackInfo ci) {
         Bat self = (Bat)(Object)this;
         if (!level.isClientSide()) {
+            ((MobAccessor)self).getGoalSelector().addGoal(1, new net.vanillaoutsider.betterbats.ai.BatSleepGoal(self));
             ((MobAccessor)self).getGoalSelector().addGoal(2, new net.vanillaoutsider.betterbats.ai.BatFollowLeaderGoal(self));
             ((MobAccessor)self).getGoalSelector().addGoal(3, new net.vanillaoutsider.betterbats.ai.BatHuntLightGoal(self));
             ((MobAccessor)self).getGoalSelector().addGoal(4, new net.vanillaoutsider.betterbats.ai.BatDiveBombGoal(self));
+        }
+    }
+
+    @Inject(method = "customServerAiStep", at = @At("TAIL"))
+    private void betterbats$wakeUpAtNight(ServerLevel level, CallbackInfo ci) {
+        Bat self = (Bat)(Object)this;
+        if (self.isResting() && !level.isBrightOutside() && self.getRandom().nextInt(200) == 0) {
+            self.setResting(false);
         }
     }
 

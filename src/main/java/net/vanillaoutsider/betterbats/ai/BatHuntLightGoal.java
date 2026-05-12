@@ -27,7 +27,7 @@ public class BatHuntLightGoal extends Goal {
             return false;
         }
         Level level = this.bat.level();
-        if (level.isClientSide()) return false;
+        if (level.isClientSide() || level.isBrightOutside()) return false;
         
         BlockPos pos = this.bat.blockPosition();
         if (level.getBrightness(LightLayer.BLOCK, pos) > 12) {

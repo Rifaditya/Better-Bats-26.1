@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1+build.2] - 2026-05-12
+
+### Added
+- **Diurnal Roosting (The Sleep)**: Bats now actively seek dark spots (Sky Light 0) during the day to roost.
+- **Light Avoidance**: Bats will no longer be attracted to artificial light sources during the day.
+- **Nocturnal Awakening**: Bats will automatically wake up and disperse at nightfall.
+
+## [1.1.1+build.1] - 2026-05-12
+
+### Changed
+- **Sovereign Standard Migration**: Fully refactored GameRule management to use `DynamicGameRuleManager` from DasikLibrary 1.7.0.
+- **Boids Murmuration**: Implemented `BatFollowLeaderGoal` with dynamic `Alignment`, `Cohesion`, and `Separation` weights tunable at runtime via GameRules.
+- **Thin Architecture**: Removed `GameRuleHelper` and offloaded AI logic from Mixins to dedicated goal classes.
+
+
 ## [1.1.0+build.1] - 2026-04-20
 
 ### Added
