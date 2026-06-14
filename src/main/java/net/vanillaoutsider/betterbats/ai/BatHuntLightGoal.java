@@ -1,4 +1,14 @@
-// Verified against: concept_better_bats.md
+/*
+ * Better Bats - Chiroptera Enhancements
+ * Copyright (C) 2026 Dasik (Rifaditya)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
+
+// Verified against: Level.java (26.1.2)
 package net.vanillaoutsider.betterbats.ai;
 
 import net.minecraft.core.BlockPos;
@@ -15,6 +25,9 @@ public class BatHuntLightGoal extends Goal {
     private final Bat bat;
     private BlockPos targetLight;
     private int circlingTicks;
+    private double targetCenterX;
+    private double targetCenterY;
+    private double targetCenterZ;
 
     public BatHuntLightGoal(Bat bat) {
         this.bat = bat;
@@ -51,6 +64,11 @@ public class BatHuntLightGoal extends Goal {
         if (this.bat instanceof net.dasik.social.api.group.GroupMember gm) {
             gm.setLeader(null); 
         }
+        if (this.targetLight != null) {
+            this.targetCenterX = this.targetLight.getX() + 0.5;
+            this.targetCenterY = this.targetLight.getY() + 0.5;
+            this.targetCenterZ = this.targetLight.getZ() + 0.5;
+        }
     }
 
     @Override
@@ -67,20 +85,51 @@ public class BatHuntLightGoal extends Goal {
     public void tick() {
         this.circlingTicks++;
         if (this.targetLight != null) {
-            Vec3 targetVec = this.targetLight.getCenter();
-            Vec3 dir = targetVec.subtract(this.bat.position());
+            double batX = this.bat.getX();
+            double batY = this.bat.getY();
+            double batZ = this.bat.getZ();
+
+            double dx = this.targetCenterX - batX;
+            double dy = this.targetCenterY - batY;
+            double dz = this.targetCenterZ - batZ;
             
-            double dist = dir.length();
-            if (dist > 1.5) {
-                this.bat.setDeltaMovement(this.bat.getDeltaMovement().add(dir.normalize().scale(0.05)));
-            } else {
-                Vec3 cross = dir.cross(new Vec3(0, 1, 0)).normalize().scale(0.1);
-                this.bat.setDeltaMovement(this.bat.getDeltaMovement().add(cross).scale(0.9));
-                
-                if (this.bat.getRandom().nextInt(10) == 0 && this.bat.level() instanceof ServerLevel sl) {
-                    sl.sendParticles(net.minecraft.core.particles.ParticleTypes.CRIT, this.bat.getX(), this.bat.getY(), this.bat.getZ(), 3, 0.2, 0.2, 0.2, 0.05);
+            double distSq = dx * dx + dy * dy + dz * dz;
+            double dist = Math.sqrt(distSq);
+
+            if (dist > 1.0E-4) {
+                Vec3 currentMovement = this.bat.getDeltaMovement();
+                if (dist > 1.5) {
+                    double scale = 0.05 / dist;
+                    double addX = dx * scale;
+                    double addY = dy * scale;
+                    double addZ = dz * scale;
+                    this.bat.setDeltaMovement(currentMovement.add(addX, addY, addZ));
+                } else {
+                    // cross product with (0,1,0):
+                    // cross.x = dy * 0 - dz * 1 = -dz
+                    // cross.y = dz * 0 - dx * 0 = 0
+                    // cross.z = dx * 1 - dy * 0 = dx
+                    double crossX = -dz;
+                    double crossY = 0.0;
+                    double crossZ = dx;
+                    double crossLen = Math.sqrt(crossX * crossX + crossZ * crossZ);
+
+                    if (crossLen > 1.0E-4) {
+                        double scale = 0.1 / crossLen;
+                        double finalX = (currentMovement.x + crossX * scale) * 0.9;
+                        double finalY = currentMovement.y * 0.9;
+                        double finalZ = (currentMovement.z + crossZ * scale) * 0.9;
+                        this.bat.setDeltaMovement(finalX, finalY, finalZ);
+                    } else {
+                        this.bat.setDeltaMovement(currentMovement.x * 0.9, currentMovement.y * 0.9, currentMovement.z * 0.9);
+                    }
+                    
+                    if (this.bat.getRandom().nextInt(10) == 0 && this.bat.level() instanceof ServerLevel sl) {
+                        sl.sendParticles(net.minecraft.core.particles.ParticleTypes.CRIT, batX, batY, batZ, 3, 0.2, 0.2, 0.2, 0.05);
+                    }
                 }
             }
         }
     }
 }
+

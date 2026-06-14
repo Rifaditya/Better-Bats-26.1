@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3-26.1.2] - 2026-06-14
+
+### Fixed
+- **Performance**: Optimized `BatHuntLightGoal` to avoid intermediate `Vec3` allocations by caching target coordinates and using double-based math.
+
 ## [1.1.2+A-26.1.2] - 2026-06-14
 
 ### Changed

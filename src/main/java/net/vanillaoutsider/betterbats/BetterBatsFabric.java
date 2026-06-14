@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: GameRules.java (26.1.2)
 package net.vanillaoutsider.betterbats;
 
 import net.dasik.social.api.gamerule.DynamicGameRuleManager;
@@ -13,7 +13,7 @@ public class BetterBatsFabric implements ModInitializer {
     public static final String MOD_ID = "better-bats";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final GameRuleCategory BETTER_BATS = DynamicGameRuleManager.registerCategory(Identifier.parse("better-bats:better_bats"));
+    public static final GameRuleCategory BETTER_BATS = DynamicGameRuleManager.registerCategory(Identifier.fromNamespaceAndPath("better-bats", "better_bats"));
 
     public static final GameRule<Integer> BAT_SWARM_SIZE = 
             DynamicGameRuleManager.integerRule("better-bats:bat_swarm_size", BETTER_BATS, 5)
@@ -57,6 +57,13 @@ public class BetterBatsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Better Bats: Chioptera Enhancements Initialized (v1.1.1+build.1)");
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("dasik-library")) {
+            throw new RuntimeException("Better Bats requires 'dasik-library' to be loaded!");
+        }
+        String version = net.fabricmc.loader.api.FabricLoader.getInstance()
+                .getModContainer("better-bats")
+                .map(container -> container.getMetadata().getVersion().getFriendlyString())
+                .orElse("1.1.3-26.1.2");
+        LOGGER.info("Better Bats: Chioptera Enhancements Initialized (v" + version + ")");
     }
 }
