@@ -55,6 +55,13 @@ public class BetterBatsFabric implements ModInitializer {
                     .range(0, 100)
                     .register();
 
+    public static final GameRule<Integer> BAT_SPAWN_WEIGHT = 
+            DynamicGameRuleManager.integerRule("better-bats:bat_spawn_weight", BETTER_BATS, 30)
+                    .name("Bat Spawn Weight")
+                    .description("The spawn weight of bats (Vanilla is 10). Set to 0 to disable spawning. Range: 0 to 100.")
+                    .range(0, 100)
+                    .register();
+
     @Override
     public void onInitialize() {
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("dasik-library")) {

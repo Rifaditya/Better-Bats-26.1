@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.4-26.1.2] - 2026-06-14
+
+### Added
+- **Configurable Spawn Rates**: Added a new dynamic GameRule `better-bats:bat_spawn_weight` to dynamically scale or disable bat spawning. Increased the default weight to 30 (from 10) to make bats spawn more commonly by default.
+
 ## [1.1.3-26.1.2] - 2026-06-14
 
 ### Fixed

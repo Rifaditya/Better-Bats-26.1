@@ -3,15 +3,17 @@
   "modmenu.name.better-bats": "Better Bats",
   "gamerule.category.better-bats.better_bats": "Better Bats",
   "gamerule.better-bats.bat_swarm_size": "Bat Swarm Size",
-  "gamerule.better-bats.bat_swarm_size.description": "Maximum number of bats allowed in a single flock.",
+  "gamerule.better-bats.bat_swarm_size.description": "Controls the maximum size of bat flocks. When this threshold is met or exceeded, bats will no longer recruit new members into their murmuration. Set to 0 to disable flocking entirely. Default: 5.",
   "gamerule.better-bats.bat_guano_threshold": "Guano Production Speed",
-  "gamerule.better-bats.bat_guano_threshold.description": "Ticks required for a resting bat to produce guano (Lower is faster).",
+  "gamerule.better-bats.bat_guano_threshold.description": "Determines the time interval in game ticks required for a resting (roosting) bat to produce a fertilizer drop. Once this duration is accumulated, the bat drops guano to fertilize the soil block directly below it. Set to a higher value for slower rates. Default: 12000.",
   "gamerule.better-bats.bat_pest_control": "Enable Pest Control",
-  "gamerule.better-bats.bat_pest_control.description": "If true, bats will hunt silverfish and endermites.",
+  "gamerule.better-bats.bat_pest_control.description": "Enables or disables predatory combat behaviors in bats. When true, bats will aggressively dive-bomb, target, and instantly defeat nearby crawling pests such as Silverfish and Endermites. Default: true.",
   "gamerule.better-bats.bat_alignment": "Bat Alignment Weight",
-  "gamerule.better-bats.bat_alignment.description": "How strongly bats align their flight direction with the swarm (0-100). Default: 5",
+  "gamerule.better-bats.bat_alignment.description": "The steering weight (scale factor) that dictates how strongly individual bats match the velocity and flight heading of nearby flock members. Higher values lead to strict parallel movements, while lower values allow more independent flight paths. Range: 0 to 100. Default: 5.",
   "gamerule.better-bats.bat_cohesion": "Bat Cohesion Weight",
-  "gamerule.better-bats.bat_cohesion.description": "How strongly bats are pulled towards the center of the swarm (0-100). Default: 5",
+  "gamerule.better-bats.bat_cohesion.description": "The steering weight (scale factor) that determines how strongly bats are drawn toward the center of mass of their flock. Higher values keep the swarm tightly packed together, while lower values let the flock spread out. Range: 0 to 100. Default: 5.",
   "gamerule.better-bats.bat_separation": "Bat Separation Weight",
-  "gamerule.better-bats.bat_separation.description": "How strongly bats avoid colliding with each other (0-100). Default: 10"
+  "gamerule.better-bats.bat_separation.description": "The steering weight (scale factor) that controls how aggressively bats avoid collision and push away from neighboring flock members. Higher values enforce wider personal space buffers, preventing overlapping models. Range: 0 to 100. Default: 10.",
+  "gamerule.better-bats.bat_spawn_weight": "Bat Spawn Weight",
+  "gamerule.better-bats.bat_spawn_weight.description": "Controls the spawn weight of bats in ambient spawn settings (Vanilla is 10). Set to 0 to disable spawning entirely. Default: 30."
 }
