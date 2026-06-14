@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2+A-26.1.2] - 2026-06-14
+
+### Changed
+- **Versioning**: Migrated the versioning scheme to the standard Zenith release format (`Major.Minor.Patch+[Stage]-[MC_Version]`).
+
+### Fixed
+- **Performance**: Optimized `BatFollowLeaderGoal` to cache parameters and eliminate heap allocations in the active tick loop.
+
+### Concept Coverage
+- Features implemented: 6/6 (100%)
+- Missing: None
+
+## [1.1.1+build.4] - 2026-05-20
+
+### Changed
+- **Target Citations**: Aligned all Mojang source verification citations to target Minecraft 26.1.2 Release instead of the developer snapshots.
+
+## [1.1.1+build.3] - 2026-05-20
+
+### Added
+- **Acoustic Panic (Sleep Interrupt)**: Implemented full Acoustic Panic goal mechanics. Resting bats within a 16-block radius of loud sounds (explosions, mining, sprinting players) will wake up, panic with high-speed flight, disperse from their flock, play mixed bat takeoff and low-pitch phantom flap sounds, and reset their guano accumulation progress.
+- **Dependency Guard**: Added entrypoint runtime verification for the presence of `dasik-library`.
+- **Refmap and Compile Integrity**: Added missing refmap configuration to mixins file and resolved all source verification class citations targeting Minecraft 26.1 Snapshot 11.
+
 ## [1.1.1+build.2] - 2026-05-12
 
 ### Added
@@ -12,7 +36,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.1+build.1] - 2026-05-12
 
 ### Changed
-- **Sovereign Standard Migration**: Fully refactored GameRule management to use `DynamicGameRuleManager` from DasikLibrary 1.7.0.
+- **Standard Core Migration**: Fully refactored GameRule management to use `DynamicGameRuleManager` from DasikLibrary 1.7.0.
 - **Boids Murmuration**: Implemented `BatFollowLeaderGoal` with dynamic `Alignment`, `Cohesion`, and `Separation` weights tunable at runtime via GameRules.
 - **Thin Architecture**: Removed `GameRuleHelper` and offloaded AI logic from Mixins to dedicated goal classes.
 
@@ -28,7 +52,7 @@ All notable changes to this project will be documented in this file.
 - **Translations**: Added full localization and descriptive tooltips for all new GameRules in `en_us.json`.
 
 ### Changed
-- **Sovereign Standard Alignment**: Re-engineered the GameRule registry system to match the high-quality pattern used in **Better Dogs**. 
+- **Standard Alignment**: Re-engineered the GameRule registry system to match the high-quality pattern used in **Better Dogs**. 
 - **Registry Overhaul**: Replaced the deprecated/removed `GameRuleRegistry` with direct `Registry.register` using the official `new GameRule<>()` constructor.
 
 ### Fixed

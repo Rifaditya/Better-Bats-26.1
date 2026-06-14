@@ -1,3 +1,14 @@
+/*
+ * Better Bats - Chiroptera Enhancements
+ * Copyright (C) 2026 Dasik (Rifaditya)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
+
+// Verified against: Bat.java (26.1.2)
 package net.vanillaoutsider.betterbats.ai;
 
 import net.dasik.social.ai.goal.FollowLeaderGoal;
@@ -10,6 +21,9 @@ import net.vanillaoutsider.betterbats.BetterBatsFabric;
  * Custom FollowLeaderGoal for Bats that supports dynamic parameter tuning via GameRules.
  */
 public class BatFollowLeaderGoal extends FollowLeaderGoal<Bat> {
+    private int cachedAlignment = -1;
+    private int cachedCohesion = -1;
+    private int cachedSeparation = -1;
     
     public BatFollowLeaderGoal(Bat mob) {
         // Start with default aerial parameters
@@ -30,19 +44,26 @@ public class BatFollowLeaderGoal extends FollowLeaderGoal<Bat> {
         int cohesion = DynamicGameRuleManager.getInt(this.mob.level(), BetterBatsFabric.BAT_COHESION);
         int separation = DynamicGameRuleManager.getInt(this.mob.level(), BetterBatsFabric.BAT_SEPARATION);
 
-        // Update the goal's parameters with new Boids weights
-        // Formula: RuleValue * 0.01f (e.g., 5 -> 0.05f)
-        this.setParameters(new GroupParameters(
-            3.0f,   // cohesionRadius
-            1.0f,   // separationRadius
-            0.4f,   // maxSpeed
-            true,   // canTeleport
-            144.0f, // teleportDistance
-            6.0f,   // startDistance
-            2.0f,   // stopDistance
-            alignment * 0.01f,
-            cohesion * 0.01f,
-            separation * 0.01f
-        ));
+        if (alignment != this.cachedAlignment || cohesion != this.cachedCohesion || separation != this.cachedSeparation) {
+            this.cachedAlignment = alignment;
+            this.cachedCohesion = cohesion;
+            this.cachedSeparation = separation;
+
+            // Update the goal's parameters with new Boids weights
+            // Formula: RuleValue * 0.01f (e.g., 5 -> 0.05f)
+            this.setParameters(new GroupParameters(
+                3.0f,   // cohesionRadius
+                1.0f,   // separationRadius
+                0.4f,   // maxSpeed
+                true,   // canTeleport
+                144.0f, // teleportDistance
+                6.0f,   // startDistance
+                2.0f,   // stopDistance
+                alignment * 0.01f,
+                cohesion * 0.01f,
+                separation * 0.01f
+            ));
+        }
     }
 }
+
