@@ -38,7 +38,7 @@ Via DasikLibrary, allowing for server performance tuning:
 - **Version Format**: `1.1.0+build.1`
 - **Internal Dependency**: `"dasik-library": "*"` (Standalone)
 - **Archive Strategy**: Store old build `.jar`s in `/Archive/builds/`
-- **Hive Mind Mandate**: MUST use `GroupMember` API. AI timers must NOT be synced to NBT.
+- **Hive Mind Alignment**: MUST use `GroupMember` API. AI timers must NOT be synced to NBT.
 
 ## Assets Needed (Vanilla Repurposed)
 - **Particles**: `crit` particles for lantern hunting. `falling_dust` (with Dirt/Podzol BlockState) for guano drop.

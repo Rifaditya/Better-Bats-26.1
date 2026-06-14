@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: GameEventDispatcher.java (26.1.2)
 package net.vanillaoutsider.betterbats.mixin;
 
 import net.minecraft.core.Holder;
@@ -8,6 +8,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventDispatcher;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.vanillaoutsider.betterbats.BatStateAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Final;
@@ -23,13 +24,16 @@ public abstract class GameEventDispatcherMixin {
 
     @Inject(method = "post", at = @At("HEAD"))
     private void betterbats$onGameEvent(Holder<GameEvent> gameEvent, Vec3 position, GameEvent.Context context, CallbackInfo ci) {
-        if (gameEvent == GameEvent.EXPLODE || gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.STEP) {
+        boolean isLoudStep = gameEvent == GameEvent.STEP && context.sourceEntity() != null && context.sourceEntity().isSprinting();
+        if (gameEvent == GameEvent.EXPLODE || gameEvent == GameEvent.BLOCK_DESTROY || isLoudStep) {
             List<Bat> bats = this.level.getEntitiesOfClass(Bat.class, new AABB(position, position).inflate(16.0));
             for (Bat bat : bats) {
                 if (bat.isResting()) {
                     bat.setResting(false);
-                    // Scatter logic - just un-resting will make FollowLeaderGoal take over
-                    // Or erratic vanilla flight if no leader
+                }
+                if (bat instanceof BatStateAccessor accessor) {
+                    accessor.betterbats$resetGuanoTicks();
+                    accessor.betterbats$panic(position);
                 }
             }
         }

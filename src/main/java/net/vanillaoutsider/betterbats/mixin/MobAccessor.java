@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: Mob.java (26.1.2)
 package net.vanillaoutsider.betterbats.mixin;
 
 import net.minecraft.world.entity.Mob;

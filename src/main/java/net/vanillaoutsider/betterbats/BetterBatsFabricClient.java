@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: Minecraft.java (26.1.2)
 package net.vanillaoutsider.betterbats;
 
 import net.fabricmc.api.ClientModInitializer;

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.6-26.1.2] - 2026-06-14
+
+### Fixed
+- **Performance**: Optimized `BatPanicGoal` to eliminate all intermediate heap allocations inside its active tick loop by switching vector math to double primitives.
+
 ## [1.1.5-26.1.2] - 2026-06-14
 
 ### Added

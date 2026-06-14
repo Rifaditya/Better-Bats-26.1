@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: Silverfish.java (26.1.2)
 package net.vanillaoutsider.betterbats.ai;
 
 import net.minecraft.world.entity.ai.goal.Goal;

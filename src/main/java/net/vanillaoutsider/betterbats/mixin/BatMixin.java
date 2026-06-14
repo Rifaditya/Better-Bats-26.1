@@ -1,4 +1,4 @@
-// Verified against: concept_better_bats.md
+// Verified against: Bat.java (26.1.2)
 package net.vanillaoutsider.betterbats.mixin;
 
 import net.minecraft.core.BlockPos;
@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.vanillaoutsider.betterbats.BetterBatsFabric;
+import net.vanillaoutsider.betterbats.BatStateAccessor;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Bat.class)
-public abstract class BatMixin implements GroupMember {
+public abstract class BatMixin implements GroupMember, BatStateAccessor {
 
     @Unique
     private LivingEntity betterbats$leader;
@@ -41,6 +42,10 @@ public abstract class BatMixin implements GroupMember {
     private FlockState betterbats$flockState;
     @Unique
     private int betterbats$guanoTicks = 0;
+    @Unique
+    private int betterbats$panicTicks = 0;
+    @Unique
+    private Vec3 betterbats$panicSource;
 
     @Override
     public LivingEntity getLeader() { return this.betterbats$leader; }
@@ -71,14 +76,46 @@ public abstract class BatMixin implements GroupMember {
     @Override
     public void setFlockState(FlockState state) { this.betterbats$flockState = state; }
 
+    @Override
+    public void betterbats$resetGuanoTicks() {
+        this.betterbats$guanoTicks = 0;
+    }
+
+    @Override
+    public void betterbats$panic(Vec3 source) {
+        this.betterbats$panicTicks = 100;
+        this.betterbats$panicSource = source;
+    }
+
+    @Override
+    public boolean betterbats$isPanicked() {
+        return this.betterbats$panicTicks > 0;
+    }
+
+    @Override
+    public int betterbats$getPanicTicks() {
+        return this.betterbats$panicTicks;
+    }
+
+    @Override
+    public void betterbats$setPanicTicks(int ticks) {
+        this.betterbats$panicTicks = ticks;
+    }
+
+    @Override
+    public Vec3 betterbats$getPanicSource() {
+        return this.betterbats$panicSource;
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void betterbats$onInit(EntityType<? extends Bat> type, Level level, CallbackInfo ci) {
         Bat self = (Bat)(Object)this;
         if (!level.isClientSide()) {
-            ((MobAccessor)self).getGoalSelector().addGoal(1, new net.vanillaoutsider.betterbats.ai.BatSleepGoal(self));
-            ((MobAccessor)self).getGoalSelector().addGoal(2, new net.vanillaoutsider.betterbats.ai.BatFollowLeaderGoal(self));
-            ((MobAccessor)self).getGoalSelector().addGoal(3, new net.vanillaoutsider.betterbats.ai.BatHuntLightGoal(self));
-            ((MobAccessor)self).getGoalSelector().addGoal(4, new net.vanillaoutsider.betterbats.ai.BatDiveBombGoal(self));
+            ((MobAccessor)self).getGoalSelector().addGoal(1, new net.vanillaoutsider.betterbats.ai.BatPanicGoal(self));
+            ((MobAccessor)self).getGoalSelector().addGoal(2, new net.vanillaoutsider.betterbats.ai.BatSleepGoal(self));
+            ((MobAccessor)self).getGoalSelector().addGoal(3, new net.vanillaoutsider.betterbats.ai.BatFollowLeaderGoal(self));
+            ((MobAccessor)self).getGoalSelector().addGoal(4, new net.vanillaoutsider.betterbats.ai.BatHuntLightGoal(self));
+            ((MobAccessor)self).getGoalSelector().addGoal(5, new net.vanillaoutsider.betterbats.ai.BatDiveBombGoal(self));
         }
     }
 
