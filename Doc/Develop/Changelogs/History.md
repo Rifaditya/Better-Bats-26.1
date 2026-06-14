@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.5-26.1.2] - 2026-06-14
+
+### Added
+- **Configuration Screen**: Added optional ModMenu and Cloth Config configuration GUI integration. The configuration settings define baseline defaults used to register/initialize GameRules for new worlds.
+
 ## [1.1.4-26.1.2] - 2026-06-14
 
 ### Added
