@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.7-26.1.2] - 2026-06-19
+
+### Fixed
+- **AI/Movement**: Fixed bats constantly teleporting to the leader instead of flying smoothly. Follower bats now execute boids flocking steering vectors every tick, and the default teleportation threshold has been increased to 32 blocks (1024.0f distance squared).
+
 ## [1.1.6-26.1.2] - 2026-06-14
 
 ### Fixed

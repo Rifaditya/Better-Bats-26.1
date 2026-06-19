@@ -12,8 +12,13 @@
 package net.vanillaoutsider.betterbats.ai;
 
 import net.dasik.social.ai.goal.FollowLeaderGoal;
+import net.dasik.social.api.group.GroupMember;
 import net.dasik.social.api.group.strategy.GroupParameters;
 import net.dasik.social.api.gamerule.DynamicGameRuleManager;
+import net.dasik.social.core.group.FlockState;
+import net.dasik.social.core.group.GroupManager;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.Bat;
 import net.vanillaoutsider.betterbats.BetterBatsFabric;
 
@@ -32,11 +37,35 @@ public class BatFollowLeaderGoal extends FollowLeaderGoal<Bat> {
 
     @Override
     public void tick() {
+        if (this.mob == null) {
+            return;
+        }
+
         // Periodically sync parameters with GameRules (every 20 ticks to avoid overhead)
         if (this.mob.tickCount % 20 == 0 && !this.mob.level().isClientSide()) {
             this.syncParameters();
         }
-        super.tick();
+
+        Mob leader = (Mob) ((GroupMember) this.mob).getLeader();
+        if (leader == null) {
+            return;
+        }
+
+        // Staggered calculation of flock state (every 20 ticks on the server side)
+        if (this.mob.tickCount % 20 == 0 && !this.mob.level().isClientSide()) {
+            GroupMember leaderGM = (GroupMember) leader;
+            FlockState state = leaderGM.getFlockState();
+            if (state == null || this.mob.level().getGameTime() - state.getLastUpdateTime() > 20) {
+                double transmitRange = this.searchRadius * 3.0;
+                if (leader.getAttributes().hasAttribute(Attributes.WAYPOINT_TRANSMIT_RANGE)) {
+                    transmitRange = leader.getAttributeValue(Attributes.WAYPOINT_TRANSMIT_RANGE);
+                }
+                GroupManager.computeFlockState(leader, transmitRange);
+            }
+        }
+
+        // Execute the flocking strategy every tick for smooth flying boids behavior
+        this.defaultStrategy.execute(this.mob, leader, this.parameters);
     }
 
     private void syncParameters() {
@@ -51,12 +80,13 @@ public class BatFollowLeaderGoal extends FollowLeaderGoal<Bat> {
 
             // Update the goal's parameters with new Boids weights
             // Formula: RuleValue * 0.01f (e.g., 5 -> 0.05f)
+            // teleportDistance increased from 144.0f (12 blocks) to 1024.0f (32 blocks) to allow smooth flight
             this.setParameters(new GroupParameters(
                 3.0f,   // cohesionRadius
                 1.0f,   // separationRadius
                 0.4f,   // maxSpeed
                 true,   // canTeleport
-                144.0f, // teleportDistance
+                1024.0f,// teleportDistance
                 6.0f,   // startDistance
                 2.0f,   // stopDistance
                 alignment * 0.01f,
