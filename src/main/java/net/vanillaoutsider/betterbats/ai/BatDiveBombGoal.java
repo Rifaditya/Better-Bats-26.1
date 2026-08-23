@@ -12,8 +12,11 @@ import net.vanillaoutsider.betterbats.BetterBatsFabric;
 
 import java.util.EnumSet;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BatDiveBombGoal extends Goal {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BatDiveBombGoal.class);
     private final Bat bat;
     private LivingEntity targetPest;
 
@@ -49,6 +52,9 @@ public class BatDiveBombGoal extends Goal {
         if (this.bat instanceof net.vanillaoutsider.betterbats.BatStateAccessor accessor) {
             accessor.betterbats$setGoalActive(true);
         }
+        if (this.targetPest != null && net.vanillaoutsider.betterbats.util.BatDebugHelper.isDebug(this.bat.level())) {
+            LOGGER.info("[BetterBats:BatDiveBombGoal] [Bat#{}] Initiated pest dive-bomb on {} at {}", this.bat.getId(), this.targetPest.getType().getDescription().getString(), this.targetPest.blockPosition());
+        }
     }
 
     @Override
@@ -58,6 +64,9 @@ public class BatDiveBombGoal extends Goal {
 
     @Override
     public void stop() {
+        if (net.vanillaoutsider.betterbats.util.BatDebugHelper.isDebug(this.bat.level())) {
+            LOGGER.info("[BetterBats:BatDiveBombGoal] [Bat#{}] Stopped dive-bomb goal", this.bat.getId());
+        }
         this.targetPest = null;
         if (this.bat instanceof net.vanillaoutsider.betterbats.BatStateAccessor accessor) {
             accessor.betterbats$setGoalActive(false);
@@ -71,7 +80,12 @@ public class BatDiveBombGoal extends Goal {
             double dist = dir.length();
             
             if (dist < 1.0) {
-                this.targetPest.hurt(this.bat.damageSources().mobAttack(this.bat), 20.0f);
+                float attackDamageTrait = net.dasik.social.api.genetics.DasikAnimalGeneticsAPI.getTrait(this.bat, "attack_damage", 2.0f);
+                float damage = 10.0f * attackDamageTrait;
+                if (net.vanillaoutsider.betterbats.util.BatDebugHelper.isDebug(this.bat.level())) {
+                    LOGGER.info("[BetterBats:BatDiveBombGoal] [Bat#{}] Strike executed against pest {} (Dmg: {})", this.bat.getId(), this.targetPest.getType().getDescription().getString(), damage);
+                }
+                this.targetPest.hurt(this.bat.damageSources().mobAttack(this.bat), damage);
                 this.bat.playSound(net.minecraft.sounds.SoundEvents.BAT_AMBIENT, 1.0f, 0.5f); 
                 this.targetPest = null;
             } else {
