@@ -35,3 +35,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [ ] **`1.1.25-26.1.2`** (2026-08-24) - - **Testing**: Automated JUnit 5 test suite for flight physics math and config trait boundaries.
 - [ ] **`1.1.26-26.1.2`** (2026-08-24) - - **Commands**: In-game Brigadier command suite (/betterbats and /bb) with tab completion, 2-way GameRule and JSON config sync, and live debug diagnostics.
 - [ ] **`1.1.27-26.1.2`** (2026-08-24) - - **Diagnostics**: Dynamic session-transient `better-bats:debug_mode` GameRule, zero-allocation `BatDebugHelper`, dedicated SLF4J loggers across all AI helpers, and `/betterbats debug on|off` toggles.
+- [ ] **`1.1.28-26.1.2`** (2026-08-24) - - **Metadata & Documentation**: Added `"custom"` Modrinth block and corrected Chiroptera spelling in `fabric.mod.json`.
