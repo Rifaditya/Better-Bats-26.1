@@ -132,7 +132,7 @@ public abstract class BatMixin implements GroupMember, BatStateAccessor {
 
         if (self.isResting()) {
             boolean isSilent = self.isSilent();
-            if (level.getBlockState(above).isRedstoneConductor(level, above)) {
+            if (net.vanillaoutsider.betterbats.ai.BatRoostHelper.isSuitableRoost(level, pos, above)) {
                 if (self.getRandom().nextInt(200) == 0) {
                     self.yHeadRot = self.getRandom().nextInt(360);
                 }
@@ -168,7 +168,7 @@ public abstract class BatMixin implements GroupMember, BatStateAccessor {
             self.zza = 0.5F;
         }
 
-        if (self.getRandom().nextInt(100) == 0 && level.getBlockState(above).isRedstoneConductor(level, above)) {
+        if (self.getRandom().nextInt(100) == 0 && net.vanillaoutsider.betterbats.ai.BatRoostHelper.isSuitableRoost(level, pos, above)) {
             self.setResting(true);
         }
 

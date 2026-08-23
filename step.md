@@ -10,7 +10,7 @@
 ## 📊 Parity Steps Status & Checklist
 
 - [x] **Step 1: Architectural Overhaul & Flight Jitter Elimination** (`v1.1.17-26.1.2`)
-- [ ] **Step 2: Expanded Roost Hanging (Feature 7)** (`v1.1.18-26.1.2`)
+- [x] **Step 2: Expanded Roost Hanging (Feature 7)** (`v1.1.18-26.1.2`)
 - [ ] **Step 3: Physical Guano Harvest (Feature 8)** (`v1.1.19-26.1.2`)
 - [ ] **Step 4: Predator Avoidance (Feature 9)** (`v1.1.20-26.1.2`)
 - [ ] **Step 5: Ambient Cave Echolocation, Roost Clustering & Storm Shelter (Features 10–12)** (`v1.1.22-26.1.2`)
