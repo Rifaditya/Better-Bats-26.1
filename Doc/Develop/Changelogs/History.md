@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.25-26.1.2] - 2026-08-24
+
+### Added
+- **Automated Testing Suite**: Integrated a JUnit 5 test suite in `src/test/java/net/vanillaoutsider/betterbats/test/` verifying flight Boids math algorithms, velocity limits, altitude cap math, configuration defaults, and genetics trait bounds.
+- **Build Infrastructure**: Configured JUnit Platform integration in `build.gradle` for automated headless execution via `./gradlew test`.
+
 ## [1.1.24-26.1.2] - 2026-08-24
 
 ### Fixed & Optimized
