@@ -23,6 +23,7 @@ public class BetterBatsFabric implements ModInitializer {
     public static GameRule<Integer> BAT_COHESION;
     public static GameRule<Integer> BAT_SEPARATION;
     public static GameRule<Integer> BAT_SPAWN_WEIGHT;
+    public static GameRule<Boolean> BAT_DROP_GUANO_ITEM;
 
     @Override
     public void onInitialize() {
@@ -81,6 +82,12 @@ public class BetterBatsFabric implements ModInitializer {
                         .name("Bat Spawn Weight")
                         .description("The spawn weight of bats (Vanilla is 10). Set to 0 to disable spawning. Range: 0 to 100.")
                         .range(0, 100)
+                        .register();
+
+        BAT_DROP_GUANO_ITEM = 
+                DynamicGameRuleManager.booleanRule("better-bats:bat_drop_guano_item", BETTER_BATS, config.batDropGuanoItem)
+                        .name("Drop Guano Items")
+                        .description("If true, roosting bats drop physical Bone Meal items over non-farmland blocks or when crops below are fully grown. Default: false.")
                         .register();
 
         String version = net.fabricmc.loader.api.FabricLoader.getInstance()
