@@ -14,7 +14,7 @@
 - [x] **Step 3: Physical Guano Harvest (Feature 8)** (`v1.1.19-26.1.2`)
 - [x] **Step 4: Predator Avoidance (Feature 9)** (`v1.1.20-26.1.2`)
 - [x] **Step 5: Ambient Cave Echolocation, Roost Clustering & Storm Shelter (Features 10–12)** (`v1.1.22-26.1.2`)
-- [ ] **Step 6: Dasik Animal Genetics API Integration** (`v1.1.23-26.1.2`)
+- [x] **Step 6: Dasik Animal Genetics API Integration** (`v1.1.23-26.1.2`)
 - [ ] **Step 7: Resting Entity Lookup Throttling & Performance Optimization** (`v1.1.24-26.1.2`)
 - [ ] **Step 8: Automated Headless Test Suite (JUnit 5)** (`v1.1.25-26.1.2`)
 

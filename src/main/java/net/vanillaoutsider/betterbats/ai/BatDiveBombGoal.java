@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.vanillaoutsider.betterbats.BetterBatsFabric;
 
@@ -23,7 +24,8 @@ public class BatDiveBombGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (this.bat.level().isClientSide() || !this.bat.level().getServer().getGameRules().get(BetterBatsFabric.BAT_PEST_CONTROL)) {
+        Level level = this.bat.level();
+        if (level.isClientSide() || !net.dasik.social.api.gamerule.DynamicGameRuleManager.getBoolean(level, BetterBatsFabric.BAT_PEST_CONTROL)) {
             return false;
         }
         if (this.bat.isResting() || this.bat.getRandom().nextInt(20) != 0) {

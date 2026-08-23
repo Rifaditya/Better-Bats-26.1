@@ -30,3 +30,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [ ] **`1.1.19-26.1.2`** (2026-08-24) - - **AI/Guano**: Physical Guano Harvest (Feature 8) via `better-bats:bat_drop_guano_item` GameRule and config option.
 - [ ] **`1.1.20-26.1.2`** (2026-08-24) - - **AI/Predator Avoidance**: Predator Avoidance (Feature 9) against Cats, Ocelots, and Phantoms.
 - [ ] **`1.1.22-26.1.2`** (2026-08-24) - - **AI/Echolocation & Roosting**: Cave Echolocation (Feature 10), Roost Clustering (Feature 11), and Storm Shelter Seeking (Feature 12).
+- [ ] **`1.1.23-26.1.2`** (2026-08-24) - - **Genetics**: Animal Genetics API integration for wingspan scale, speed, and attack damage.

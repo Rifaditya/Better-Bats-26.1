@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.23-26.1.2] - 2026-08-24
+
+### Added
+- **Animal Genetics API Integration**: Integrated `DasikAnimalGeneticsAPI` and `GeneticsEngine` from `dasik-library`. Bats now possess individual genetic traits:
+  - `scale`: Variable wingspan and entity size scaling (`0.75x` microbats to `1.30x` giant cave bats).
+  - `movement_speed`: Genetic flight speed modifiers.
+  - `attack_damage`: Pest dive-bomb damage scaling against Silverfish and Endermites.
+
 ## [1.1.22-26.1.2] - 2026-08-24
 
 ### Added
