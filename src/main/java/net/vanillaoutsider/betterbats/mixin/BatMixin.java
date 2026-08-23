@@ -46,6 +46,11 @@ public abstract class BatMixin implements GroupMember, BatStateAccessor {
     private boolean betterbats$goalActive = false;
 
     @Override
+    public int betterbats$getGuanoTicks() {
+        return this.betterbats$guanoTicks;
+    }
+
+    @Override
     public boolean betterbats$isGoalActive() {
         return this.betterbats$goalActive;
     }

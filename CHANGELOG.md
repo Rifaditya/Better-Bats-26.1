@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.26-26.1.2] - 2026-08-24
+
+### Added
+- **Brigadier Command Suite**: Implemented `/betterbats` and `/bb` command suites with full tab completion:
+  - `/<cmd> help`: Formatted command syntax reference and color legend.
+  - `/<cmd> status`: Categorized overview of active GameRules (Swarm Dynamics, Ecology & Fertilizer, Spawning).
+  - `/<cmd> get <rule>`: Tab-completed GameRule queries supporting flexible short names (`bat_swarm_size`, `swarm_size`) and full names.
+  - `/<cmd> set <rule> <val>`: Live GameRule modification with automatic 2-way synchronization to `config/better-bats.json` (Gamemasters).
+  - `/<cmd> reset`: Resets all GameRules to factory defaults and synchronizes JSON configuration (Gamemasters).
+  - `/<cmd> reload`: Reloads `config/better-bats.json` from disk and applies settings to the active world (Gamemasters).
+  - `/<cmd> debug inspect`: Diagnostic raycast to inspect target bat wingspan scale, flight state, velocity, and guano ticks (Gamemasters).
+  - `/<cmd> debug spawn_swarm [count]`: Spawns a coordinated bat murmuration flock for live testing (Gamemasters).
+
 ## [1.1.25-26.1.2] - 2026-08-24
 
 ### Added

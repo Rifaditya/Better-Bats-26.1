@@ -115,6 +115,11 @@ public class BetterBatsFabric implements ModInitializer {
                 )
         );
 
+        // Register in-game Brigadier Command Suite (/betterbats and /bb)
+        net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            net.vanillaoutsider.betterbats.command.BetterBatsCommand.register(dispatcher);
+        });
+
         String version = net.fabricmc.loader.api.FabricLoader.getInstance()
                 .getModContainer("better-bats")
                 .map(container -> container.getMetadata().getVersion().getFriendlyString())
