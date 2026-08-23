@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.24-26.1.2] - 2026-08-24
+
+### Fixed & Optimized
+- **Performance**: Throttled resting predator entity lookup (`level.getEntitiesOfClass(...)`) to once every 20 ticks (1 sec) instead of every tick while bats are roosting, eliminating unnecessary AABB allocations during long sleep cycles.
+
 ## [1.1.23-26.1.2] - 2026-08-24
 
 ### Added

@@ -31,3 +31,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [ ] **`1.1.20-26.1.2`** (2026-08-24) - - **AI/Predator Avoidance**: Predator Avoidance (Feature 9) against Cats, Ocelots, and Phantoms.
 - [ ] **`1.1.22-26.1.2`** (2026-08-24) - - **AI/Echolocation & Roosting**: Cave Echolocation (Feature 10), Roost Clustering (Feature 11), and Storm Shelter Seeking (Feature 12).
 - [ ] **`1.1.23-26.1.2`** (2026-08-24) - - **Genetics**: Animal Genetics API integration for wingspan scale, speed, and attack damage.
+- [ ] **`1.1.24-26.1.2`** (2026-08-24) - - **Optimization**: Resting predator entity lookup throttling (1/sec).
