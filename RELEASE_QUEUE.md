@@ -28,3 +28,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [ ] **`1.1.17-26.1.2`** (2026-08-24) - - **AI/Movement**: Cancelled vanilla flight step in `customServerAiStep` at `@At("HEAD")` for 100% clean trajectory control without jitter. - - **AI/Rotation**: Smooth 3-axis rotational lerping (12°/tick). - - **AI/Guano**: Villager happy fertilization particles and mycelium dust. - - **Safety**: Integrated `ModVersionGuard.checkClass`.
 - [ ] **`1.1.18-26.1.2`** (2026-08-24) - - **AI/Roosting**: Expanded Roost Hanging (Feature 7) under stalactites (Pointed Dripstone), hanging lanterns, chains, fences, walls, and leaves via `BatRoostHelper.java`.
 - [ ] **`1.1.19-26.1.2`** (2026-08-24) - - **AI/Guano**: Physical Guano Harvest (Feature 8) via `better-bats:bat_drop_guano_item` GameRule and config option.
+- [ ] **`1.1.20-26.1.2`** (2026-08-24) - - **AI/Predator Avoidance**: Predator Avoidance (Feature 9) against Cats, Ocelots, and Phantoms.

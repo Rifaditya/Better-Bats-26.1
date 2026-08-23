@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.20-26.1.2] - 2026-08-24
+
+### Added
+- **AI/Predator Avoidance**: Predator Avoidance (Feature 9). Bats now actively scan for natural predators (`Cat`, `Ocelot`, `Phantom`) within a 10-block radius. Roosting bats wake up immediately and take off when predators approach, while flying bats receive a strong directional flee steering vector (`0.25`) pushing them away from nearby predators.
+
 ## [1.1.19-26.1.2] - 2026-08-24
 
 ### Added
