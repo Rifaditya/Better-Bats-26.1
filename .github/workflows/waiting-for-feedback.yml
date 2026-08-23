@@ -1,0 +1,84 @@
+name: Issue Feedback Automation
+
+on:
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '0 0 * * *' # Daily midnight UTC check
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  handle_author_reply:
+    if: github.event_name == 'issue_comment' && !github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check author reply and update labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const comment = context.payload.comment;
+            
+            // Verify commenter is the original author and not a bot
+            const isAuthor = comment.user.login === issue.user.login;
+            const isBot = comment.user.type === 'Bot';
+            
+            const labels = issue.labels.map(l => l.name.toLowerCase());
+            const hasWaitingLabel = labels.some(l => 
+              l === 'waiting for feedback' || 
+              l === 'needs-info' || 
+              l === 'waiting-for-feedback'
+            );
+            
+            if (isAuthor && !isBot && hasWaitingLabel) {
+              console.log(`Author @${comment.user.login} replied. Removing waiting feedback label.`);
+              
+              // Remove waiting for feedback label(s)
+              for (const l of issue.labels) {
+                const lower = l.name.toLowerCase();
+                if (lower === 'waiting for feedback' || lower === 'needs-info' || lower === 'waiting-for-feedback') {
+                  try {
+                    await github.rest.issues.removeLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      name: l.name
+                    });
+                  } catch (err) {
+                    console.warn(`Could not remove label ${l.name}:`, err);
+                  }
+                }
+              }
+              
+              // Add 'active' label
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['active']
+                });
+              } catch (err) {
+                console.warn('Could not add active label:', err);
+              }
+            }
+
+  stale_feedback_check:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Handle Stale Feedback
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          only-labels: 'waiting for feedback'
+          days-before-issue-stale: 10
+          days-before-issue-close: 4
+          stale-issue-message: 'This issue is waiting for additional feedback/logs and has had no activity for 10 days. It will be automatically closed in 4 days if no response is received.'
+          close-issue-message: 'Closing this issue due to inactivity because requested feedback was not provided. If you still encounter this issue, feel free to reply with the details and the issue can be reopened.'
+          stale-issue-label: 'stale'
+          exempt-issue-labels: 'pinned,security,in progress,todo'
