@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.22-26.1.2] - 2026-08-24
+
+### Added
+- **AI/Ambience & Echolocation**: Pitch-Dark Cave Echolocation (Feature 10). Flying bats in total darkness (Sky Light 0, Block Light < 4) periodically emit high-pitched ambient clicks and subtle `SCULK_SOUL` sonic pulse particles, providing atmospheric cave depth.
+- **AI/Roosting**: Roost Clustering (Feature 11). Sleep-seeking bats now actively scan for existing resting bats within a 16-block radius and prioritize ceiling blocks adjacent to their roosting peers, forming natural bat colonies hanging from cave ceilings.
+- **AI/Weather**: Storm Shelter Seeking (Feature 12). Flying bats exposed to open rain or thunderstorms (`isRaining() && canSeeSky()`) now actively seek dark overhangs, tree canopies, or cave entrances to take shelter and roost until the weather clears.
+
 ## [1.1.20-26.1.2] - 2026-08-24
 
 ### Added

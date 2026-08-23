@@ -1,4 +1,4 @@
-// Verified against: Bat.java (26.1.2)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.vanillaoutsider.betterbats.ai;
 
 import net.minecraft.core.BlockPos;
@@ -11,8 +11,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 
 /**
- * AI Goal for Bats to seek dark roosting spots during the day.
- * Verified against: Bat.java (26.1.2 Release)
+ * AI Goal for Bats to seek dark roosting spots during the day and storms, clustering with peers.
  */
 public class BatSleepGoal extends Goal {
     private final Bat bat;
@@ -25,20 +24,44 @@ public class BatSleepGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        // Only trigger during the day if not already resting
-        if (this.bat.isResting() || !this.bat.level().isBrightOutside() || this.bat.getRandom().nextInt(20) != 0) {
-            return false;
-        }
-
         Level level = this.bat.level();
         if (level.isClientSide()) return false;
 
         BlockPos pos = this.bat.blockPosition();
+        boolean shouldSleep = level.isBrightOutside() || (level.isRaining() && level.canSeeSky(pos));
+
+        // Only trigger during daytime or storms if not already resting
+        if (this.bat.isResting() || !shouldSleep || this.bat.getRandom().nextInt(20) != 0) {
+            return false;
+        }
 
         // If currently in a dark spot, just rest immediately
         if (this.isSuitableRoost(level, pos)) {
             this.bat.setResting(true);
             return false;
+        }
+
+        // Roost Clustering: Prefer spots near existing resting bats
+        java.util.List<Bat> restingNeighbors = level.getEntitiesOfClass(
+            Bat.class,
+            this.bat.getBoundingBox().inflate(16.0),
+            b -> b != this.bat && b.isAlive() && b.isResting()
+        );
+
+        if (!restingNeighbors.isEmpty()) {
+            Bat clusterTarget = restingNeighbors.get(this.bat.getRandom().nextInt(restingNeighbors.size()));
+            BlockPos clusterPos = clusterTarget.blockPosition();
+            for (int i = 0; i < 10; i++) {
+                BlockPos check = clusterPos.offset(
+                    this.bat.getRandom().nextInt(5) - 2,
+                    this.bat.getRandom().nextInt(3) - 1,
+                    this.bat.getRandom().nextInt(5) - 2
+                );
+                if (this.isSuitableRoost(level, check)) {
+                    this.roostPos = check;
+                    return true;
+                }
+            }
         }
 
         // Search for a suitable dark roost nearby (16 block radius)
@@ -61,18 +84,19 @@ public class BatSleepGoal extends Goal {
     private boolean isSuitableRoost(Level level, BlockPos pos) {
         if (!level.isEmptyBlock(pos)) return false;
         
-        // Photophobia: Must be very dark during the day
+        // Photophobia: Must be very dark during daytime/storms
         if (level.getBrightness(LightLayer.SKY, pos) > 0) return false;
         if (level.getBrightness(LightLayer.BLOCK, pos) > 7) return false;
         
-        // Ceiling check: Must be a solid block above
+        // Roost check: Solid ceiling, dripstone, chains, lanterns, fences, walls, leaves
         BlockPos above = pos.above();
-        return level.getBlockState(above).isRedstoneConductor(level, above);
+        return BatRoostHelper.isSuitableRoost(level, pos, above);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.roostPos != null && !this.bat.isResting() && this.bat.level().isBrightOutside() && this.isSuitableRoost(this.bat.level(), this.roostPos);
+        boolean shouldSleep = this.bat.level().isBrightOutside() || (this.bat.level().isRaining() && this.bat.level().canSeeSky(this.bat.blockPosition()));
+        return this.roostPos != null && !this.bat.isResting() && shouldSleep && this.isSuitableRoost(this.bat.level(), this.roostPos);
     }
 
     @Override
@@ -89,7 +113,7 @@ public class BatSleepGoal extends Goal {
     @Override
     public void tick() {
         if (this.roostPos != null) {
-            Vec3 target = this.roostPos.getCenter();
+            Vec3 target = Vec3.atCenterOf(this.roostPos);
             Vec3 dir = target.subtract(this.bat.position());
             
             double distSqr = dir.lengthSqr();
