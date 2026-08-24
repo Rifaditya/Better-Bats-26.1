@@ -1,10 +1,5 @@
 # 🦇 Better Bats
 
-<div align="center">
-
-![Mod Banner](Doc/Assets/banner.png)
-
-</div>
 <p align="center">
     <a href="https://modrinth.com/mod/better-bats"><img src="https://img.shields.io/badge/Requires-Fabric_API-blue?style=for-the-badge&logo=fabric" alt="Requires Fabric API"></a>
     <img src="https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=java" alt="Java">
