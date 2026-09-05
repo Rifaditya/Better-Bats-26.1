@@ -46,12 +46,11 @@
         "minecraft": ">=26.1.2",
         "java": ">=25",
         "fabric-api": "*",
-        "dasik-library": "*"
+        "dasik-library": ">=1.8.38"
     },
     "suggests": {
         "yet-another-config-lib": "*",
         "yet_another_config_lib_v3": "*",
-        "cloth-config": "*",
         "modmenu": "*"
     }
 }
