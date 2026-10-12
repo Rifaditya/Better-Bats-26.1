@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: GameRules.java (26.1.2)
 package net.vanillaoutsider.betterbats;
 
@@ -28,8 +29,6 @@ public class BetterBatsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        net.vanillaoutsider.betterbats.util.ModVersionGuard.checkClass("Better Bats", "net.minecraft.world.entity.EntityType");
-
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("dasik-library")) {
             throw new RuntimeException("Better Bats requires 'dasik-library' to be loaded!");
         }

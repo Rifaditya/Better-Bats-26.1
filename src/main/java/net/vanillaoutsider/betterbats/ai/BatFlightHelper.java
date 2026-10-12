@@ -1,6 +1,6 @@
-package net.vanillaoutsider.betterbats.ai;
-
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: Level.java (26.1.2), Bat.java (26.1.2), Heightmap.java (26.1.2)
+package net.vanillaoutsider.betterbats.ai;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.level.Level;
